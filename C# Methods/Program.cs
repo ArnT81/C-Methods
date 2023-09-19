@@ -1,4 +1,4 @@
-﻿string GetUserName()
+﻿string? GetUserName()
 {
     Console.WriteLine("Please enter your name");
     return Console.ReadLine();
@@ -10,13 +10,13 @@ string GetUserWord()
     return $"#{Console.ReadLine()}";
 }
 
-string getUserNumberAsString(string message)
+string? getUserNumberAsString(string message)
 {
     Console.WriteLine(message);
     return Console.ReadLine();
 }
 
-string getUserWordWithArgument(string word)
+string? getUserWordWithArgument(string word)
 {
     Console.WriteLine($"Please enter a {word}");
     return Console.ReadLine();
