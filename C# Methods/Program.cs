@@ -10,19 +10,19 @@ string GetUserWord()
     return $"#{Console.ReadLine()}";
 }
 
-string? getUserNumberAsString(string message)
+string? GetUserNumberAsString(string message)
 {
     Console.WriteLine(message);
     return Console.ReadLine();
 }
 
-string? getUserWordWithArgument(string word)
+string? GetUserWordWithArgument(string word)
 {
     Console.WriteLine($"Please enter a {word}");
     return Console.ReadLine();
 }
 
-string getUserFullName(string firstName, string lastName)
+string GetUserFullName(string firstName, string lastName)
 {
     return $"{lastName}, {firstName}";
 }
@@ -30,6 +30,6 @@ string getUserFullName(string firstName, string lastName)
 
 Console.WriteLine($"You have entered the name {GetUserName()}"); // 1
 Console.WriteLine(GetUserWord()); // 2
-Console.WriteLine($"You have entered {getUserNumberAsString("Please enter a number")}"); // 3
-Console.WriteLine($"You have entered {getUserWordWithArgument("number")}"); // 4
-Console.WriteLine(getUserFullName("Anders", "Söderberg")); //5
+Console.WriteLine($"You have entered {GetUserNumberAsString("Please enter a number")}"); // 3
+Console.WriteLine($"You have entered {GetUserWordWithArgument("number")}"); // 4
+Console.WriteLine(GetUserFullName("Anders", "Söderberg")); //5
