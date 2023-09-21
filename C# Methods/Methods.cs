@@ -30,10 +30,30 @@
         {
             return $"{lastName}, {firstName}";
         }
-        
+
         public string GetUserFullNameForTesting(string firstName, string lastName)
         {
             return $"{lastName.ToUpper()}, {firstName[0].ToString().ToUpper() + firstName.Substring(1).ToLower()}";
+        }
+
+        string OnlyFirstLetterCapitalized(string str)
+        {
+            return $"{str[0].ToString().ToUpper() + str.Substring(1).ToLower()}";
+        }
+
+        string CapitalizeFirstThreeLetters(string str)
+        {
+            return str.Substring(0, 3).ToUpper();
+        }
+
+        public string OptionalAssignmentFormatter(string firstName, string lastName)
+        {
+            string fnFormatted = OnlyFirstLetterCapitalized(firstName);
+            string lnFormatted = OnlyFirstLetterCapitalized(lastName);
+            string lnShort = CapitalizeFirstThreeLetters(lastName);
+            string fnShort = CapitalizeFirstThreeLetters(firstName);
+
+            return $"#_{lnFormatted}, " + $"{fnFormatted} ({lnShort + fnShort})";
         }
     }
 }

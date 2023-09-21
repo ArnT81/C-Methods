@@ -5,7 +5,6 @@ namespace TestProject1
         [Fact]
         public void TestGetUserFullName()
         {
-            //var methods = new Methods.Methods();
             string expected = "Söderberg, Anders";
             string actual = GetUserFullName("Anders", "Söderberg");
             Assert.Equal(expected, actual);
@@ -14,9 +13,24 @@ namespace TestProject1
         [Fact]
         public void TestGetUserFullNameForTesting()
         {
-            //var methods = new Methods.Methods();
             string expected = "SÖDERBERG, Anders";
             string actual = GetUserFullNameForTesting("anders", "söderberg");
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test1()
+        {
+            string expected = "#_Hawthorne, Nathaniel (HAWNAT)";
+            string actual = OptionalAssignmentFormatter("nathaniel", "hawthorne");
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test2()
+        {
+            string expected = "#_George, Elisabeth (GEOELI)";
+            string actual = OptionalAssignmentFormatter("ELisabeth", "GEorge");
             Assert.Equal(expected, actual);
         }
     }
