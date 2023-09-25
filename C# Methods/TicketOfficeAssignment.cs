@@ -19,32 +19,29 @@
             return $"Ticket nr: {ticketNr}\nprice: {price} SEK\nvat included: {tax} SEK\n";
         }
 
-        private static int PriceSetter(int age, string place)
+        public static int PriceSetter(int age, string place)
         {
+            int result;
+
             if (place.ToLower() == "seated")
             {
-                switch (age)
+                result = age switch
                 {
-                    case <= 11:
-                        return 50;
-                    case >= 65:
-                        return 100;
-                    default:
-                        return 170;
-                }
+                    <= 11 => 50,
+                    >= 65 => 100,
+                    _ => 170
+                };
             }
             else
             {
-                switch (age)
+                result = age switch
                 {
-                    case <= 11:
-                        return 25;
-                    case >= 65:
-                        return 60;
-                    default:
-                        return 110;
-                }
+                    <= 11 => 25,
+                    >= 65 => 60,
+                    _ => 110
+                };
             }
+            return result;
         }
 
         private static decimal TaxCalculator(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
