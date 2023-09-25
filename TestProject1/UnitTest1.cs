@@ -1,6 +1,6 @@
 namespace TestProject1
 {
-    public class UnitTest1 : Methods.Methods
+    public class UnitTest1 : C__Methods.Methods
     {
         [Fact]
         public void TestGetUserFullName()
