@@ -21,11 +21,11 @@
 
         public static int PriceSetter(int age, string place)
         {
-            int result;
+            int cost;
 
             if (place.ToLower() == "seated")
             {
-                result = age switch
+                cost = age switch
                 {
                     <= 11 => 50,
                     >= 65 => 100,
@@ -34,14 +34,14 @@
             }
             else
             {
-                result = age switch
+                cost = age switch
                 {
                     <= 11 => 25,
                     >= 65 => 60,
                     _ => 110
                 };
             }
-            return result;
+            return cost;
         }
 
         private static decimal TaxCalculator(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
