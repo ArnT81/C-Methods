@@ -29,7 +29,7 @@
         public static string GetUserFullName(string firstName, string lastName) => $"{lastName}, {firstName}";
 
 
-        public string GetUserFullNameForTesting(string firstName, string lastName)
+        public static string GetUserFullNameForTesting(string firstName, string lastName)
         {
             return $"{lastName.ToUpper()}, {firstName[0].ToString().ToUpper() + firstName.Substring(1).ToLower()}";
         }
