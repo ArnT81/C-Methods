@@ -4,7 +4,7 @@ namespace C__Methods
 {
     public static class TicketOfficeAssignment
     {
-        static string occupiedList = "34,1003,389,4100,4890,7233,2855";
+        static public string occupiedList = "34,1003,389,4100,4890,7233,2855";
 
         public static string BuyTicket()
         {
@@ -26,7 +26,6 @@ namespace C__Methods
             }
 
             occupiedList = AddPlace(occupiedList, ticketNr);
-            Console.WriteLine("\nNEW placeList: " + occupiedList + "\n"); //TEMPORARY
             int price = PriceSetter(age, place);
             decimal tax = TaxCalculator(price);
 
