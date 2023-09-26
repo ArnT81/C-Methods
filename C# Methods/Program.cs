@@ -8,3 +8,6 @@
 
 // TICKET OFFICE ASSIGNMENT
 Console.WriteLine(TicketOfficeAssignment.BuyTicket());
+
+//string occupied = ",34,1003,389,4100,4890,7233,2855,";
+//Console.WriteLine(TicketOfficeAssignment.CheckPlaceAvailability(occupied, 1002));

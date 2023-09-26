@@ -1,7 +1,11 @@
-﻿namespace C__Methods
+﻿using System.Linq;
+
+namespace C__Methods
 {
     public static class TicketOfficeAssignment
     {
+        static string occupiedList = "34,1003,389,4100,4890,7233,2855";
+
         public static string BuyTicket()
         {
             Console.WriteLine("What is your age");
@@ -13,6 +17,16 @@
             if (place != "standing" && place != "seated") return "You need to enter 'standing' or 'seated' to continue you purchase";
 
             int ticketNr = TicketNumberGenerator();
+            bool vacant = CheckPlaceAvailability(occupiedList, ticketNr);
+
+            while (!vacant)
+            {
+                ticketNr = TicketNumberGenerator();
+                vacant = CheckPlaceAvailability(occupiedList, ticketNr);
+            }
+
+            occupiedList = AddPlace(occupiedList, ticketNr);
+            Console.WriteLine("\nNEW placeList: " + occupiedList + "\n"); //TEMPORARY
             int price = PriceSetter(age, place);
             decimal tax = TaxCalculator(price);
 
@@ -46,5 +60,9 @@
 
         private static decimal TaxCalculator(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
         private static int TicketNumberGenerator() => new Random().Next(0, 8001);
+        private static bool CheckPlaceAvailability(string placeList, int placeNumber) => !placeList.Contains(placeNumber.ToString());
+        private static string AddPlace(string placeList, int placeNumber) => string.Join(",", placeList, $"{placeNumber},");
+
+
     }
 }
