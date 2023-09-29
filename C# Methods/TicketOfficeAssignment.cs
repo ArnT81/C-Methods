@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace C__Methods
 {
@@ -8,14 +9,8 @@ namespace C__Methods
 
         public static string BuyTicket()
         {
-            Console.WriteLine("What is your age");
-            int age = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Would you prefer a standing or seated ticket?");
-            string? place = Console.ReadLine();
-
-            if (place != "standing" && place != "seated") return "You need to enter 'standing' or 'seated' to continue you purchase";
-
+            int age = GetCustomerAge();
+            string place = GetCustomerPlacePreference();
             int ticketNr = TicketNumberGenerator();
             bool vacant = CheckPlaceAvailability(occupiedList, ticketNr);
 
@@ -57,11 +52,43 @@ namespace C__Methods
             return cost;
         }
 
+        private static int GetCustomerAge()
+        {
+            bool invalid;
+            int age;
+
+            do
+            {
+                invalid = true;
+                Console.WriteLine("What is your age");
+                string? response = Console.ReadLine();
+                if (int.TryParse(response, out age)) invalid = false;
+                else Console.WriteLine("Invalid input, please enter a numerical value.");
+            } while (invalid);
+
+            return age;
+        }
+
+        private static string GetCustomerPlacePreference()
+        {
+            bool invalid;
+            string? place;
+            Console.WriteLine("Would you prefer a standing or seated ticket?");
+
+            do
+            {
+                invalid = true;
+                place = Console.ReadLine();
+                if (place?.ToLower() == "seated" || place?.ToLower() == "standing") invalid = false;
+                else Console.WriteLine("You need to enter \"standing\" or \"seated\" to continue you purchase");
+            } while (invalid);
+
+            return place;
+        }
+
         private static decimal TaxCalculator(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
         private static int TicketNumberGenerator() => new Random().Next(0, 8001);
         private static bool CheckPlaceAvailability(string placeList, int placeNumber) => !placeList.Contains(placeNumber.ToString());
         private static string AddPlace(string placeList, int placeNumber) => string.Join(",", placeList, $"{placeNumber},");
-
-
     }
 }
