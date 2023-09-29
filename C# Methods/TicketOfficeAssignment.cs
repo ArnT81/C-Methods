@@ -71,15 +71,14 @@ namespace C__Methods
 
         private static string GetCustomerPlacePreference()
         {
-            bool invalid;
-            string? place;
+            bool invalid = true;
+            string place;
             Console.WriteLine("Would you prefer a standing or seated ticket?");
 
             do
             {
-                invalid = true;
-                place = Console.ReadLine();
-                if (place?.ToLower() == "seated" || place?.ToLower() == "standing") invalid = false;
+                place = Console.ReadLine() ?? "";
+                if (place.ToLower() == "seated" || place.ToLower() == "standing") invalid = false;
                 else Console.WriteLine("You need to enter \"standing\" or \"seated\" to continue you purchase");
             } while (invalid);
 
