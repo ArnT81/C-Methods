@@ -6,11 +6,16 @@ namespace C__Methods
     public static class TicketOfficeAssignment
     {
         static public string occupiedList = "34,1003,389,4100,4890,7233,2855";
+        public enum Place
+        {
+            Standing,
+            Seated
+        }
 
         public static string BuyTicket()
         {
             int age = GetCustomerAge();
-            string place = GetCustomerPlacePreference();
+            Place place = GetCustomerPlacePreference();
             int ticketNr = TicketNumberGenerator();
             bool vacant = CheckPlaceAvailability(occupiedList, ticketNr);
 
@@ -27,11 +32,11 @@ namespace C__Methods
             return $"Ticket nr: {ticketNr}\nprice: {price} SEK\nvat included: {tax} SEK\n";
         }
 
-        public static int PriceSetter(int age, string place)
+        public static int PriceSetter(int age, Place place)
         {
             int cost;
 
-            if (place.ToLower() == "seated")
+            if (place == Place.Seated)
             {
                 cost = age switch
                 {
@@ -69,7 +74,7 @@ namespace C__Methods
             return age;
         }
 
-        private static string GetCustomerPlacePreference()
+        private static Place GetCustomerPlacePreference()
         {
             bool invalid = true;
             string place;
@@ -77,12 +82,13 @@ namespace C__Methods
 
             do
             {
-                place = Console.ReadLine() ?? "";
-                if (place.ToLower() == "seated" || place.ToLower() == "standing") invalid = false;
+                place = Console.ReadLine()?.ToLower() ?? "";
+                if (place == Place.Standing.ToString().ToLower() || place == Place.Seated.ToString().ToLower()) invalid = false;
                 else Console.WriteLine("You need to enter \"standing\" or \"seated\" to continue you purchase");
             } while (invalid);
 
-            return place;
+            if (place == "seated") return Place.Seated;
+            else return Place.Standing;
         }
 
         private static decimal TaxCalculator(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
