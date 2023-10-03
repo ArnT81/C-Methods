@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace C__Methods
+﻿namespace C__Methods
 {
     public static class TicketOfficeAssignment
     {
@@ -26,36 +23,44 @@ namespace C__Methods
             }
 
             occupiedList = AddPlace(occupiedList, ticketNr);
-            int price = PriceSetter(age, place);
-            decimal tax = TaxCalculator(price);
 
-            return $"Ticket nr: {ticketNr}\nprice: {price} SEK\nvat included: {tax} SEK\n";
+
+            //var ticket = new Ticket();
+
+            //int price = Ticket.Price(age, place);
+
+            //int price = ticket.Price();
+
+            //decimal tax = TaxCalculator(price);
+
+            //return $"Ticket nr: {ticketNr}\nprice: {price} SEK\nvat included: {tax} SEK\n";
+            return "Temp";
         }
 
-        public static int PriceSetter(int age, Place place)
-        {
-            int cost;
+        //public static int Price(int age, Place place)
+        //{
+        //    int cost;
 
-            if (place == Place.Seated)
-            {
-                cost = age switch
-                {
-                    <= 11 => 50,
-                    >= 65 => 100,
-                    _ => 170
-                };
-            }
-            else
-            {
-                cost = age switch
-                {
-                    <= 11 => 25,
-                    >= 65 => 60,
-                    _ => 110
-                };
-            }
-            return cost;
-        }
+        //    if (place == Place.Seated)
+        //    {
+        //        cost = age switch
+        //        {
+        //            <= 11 => 50,
+        //            >= 65 => 100,
+        //            _ => 170
+        //        };
+        //    }
+        //    else
+        //    {
+        //        cost = age switch
+        //        {
+        //            <= 11 => 25,
+        //            >= 65 => 60,
+        //            _ => 110
+        //        };
+        //    }
+        //    return cost;
+        //}
 
         private static int GetCustomerAge()
         {
@@ -86,13 +91,13 @@ namespace C__Methods
                 if (place == Place.Standing.ToString().ToLower() || place == Place.Seated.ToString().ToLower()) invalid = false;
                 else Console.WriteLine("You need to enter \"standing\" or \"seated\" to continue you purchase");
             } while (invalid);
-
+            Console.WriteLine("PLACE" + place); //TEMP
             if (place == "seated") return Place.Seated;
             else return Place.Standing;
         }
 
         private static decimal TaxCalculator(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
-        private static int TicketNumberGenerator() => new Random().Next(0, 8001);
+        public static int TicketNumberGenerator() => new Random().Next(0, 8001);
         private static bool CheckPlaceAvailability(string placeList, int placeNumber) => !placeList.Contains(placeNumber.ToString());
         private static string AddPlace(string placeList, int placeNumber) => string.Join(",", placeList, $"{placeNumber},");
     }
