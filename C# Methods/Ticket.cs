@@ -13,11 +13,9 @@ namespace C__Methods
         {
             Age = age;
             LocalPlace = place;
-            Number = TicketNumberGenerator();
-            Console.WriteLine(Place.Seated);
         }
 
-        //public int Price(int? age, Enum? place)
+
         public int Price()
         {
             int cost;
@@ -42,7 +40,6 @@ namespace C__Methods
             }
             return cost;
         }
-
         public decimal Tax(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
     }
 }

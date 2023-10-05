@@ -13,16 +13,16 @@
         {
             int age = GetCustomerAge();
             Place place = GetCustomerPlacePreference();
-            int ticketNr = TicketNumberGenerator();
-            bool vacant = CheckPlaceAvailability(occupiedList, ticketNr);
+            //int ticketNr = TicketNumberGenerator();
+            //bool vacant = CheckPlaceAvailability(occupiedList, ticketNr);
 
-            while (!vacant)
-            {
-                ticketNr = TicketNumberGenerator();
-                vacant = CheckPlaceAvailability(occupiedList, ticketNr);
-            }
+            //while (!vacant)
+            //{
+            //    ticketNr = TicketNumberGenerator();
+            //    vacant = CheckPlaceAvailability(occupiedList, ticketNr);
+            //}
 
-            occupiedList = AddPlace(occupiedList, ticketNr);
+            //occupiedList = AddPlace(occupiedList, ticketNr);
 
 
             //var ticket = new Ticket();
@@ -97,8 +97,8 @@
         }
 
         private static decimal TaxCalculator(int price) => Convert.ToDecimal((1 - 1 / 1.057) * price);
-        public static int TicketNumberGenerator() => new Random().Next(0, 8001);
-        private static bool CheckPlaceAvailability(string placeList, int placeNumber) => !placeList.Contains(placeNumber.ToString());
-        private static string AddPlace(string placeList, int placeNumber) => string.Join(",", placeList, $"{placeNumber},");
+        //public static int TicketNumberGenerator() => new Random().Next(0, 8001);
+        //private static bool CheckPlaceAvailability(string placeList, int placeNumber) => !placeList.Contains(placeNumber.ToString());
+        //private static string AddPlace(string placeList, int placeNumber) => string.Join(",", placeList, $"{placeNumber},");
     }
 }
