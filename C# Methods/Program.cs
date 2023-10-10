@@ -1,4 +1,5 @@
 ﻿using C__Methods;
+using System.Text.Json;
 using static C__Methods.TicketOfficeAssignment;
 
 //Console.WriteLine($"You have entered the name {Methods.GetUserName()}"); // 1
@@ -35,19 +36,57 @@ using static C__Methods.TicketOfficeAssignment;
 
 
 
-TicketSalesManager manager = new TicketSalesManager();
+//TicketSalesManager manager = new TicketSalesManager();
 
-manager.AddTicket(new Ticket(11, Place.Standing));
-manager.AddTicket(new Ticket(64, Place.Standing));
-manager.AddTicket(new Ticket(65, Place.Standing));
-manager.AddTicket(new Ticket(11, Place.Seated));
-manager.AddTicket(new Ticket(64, Place.Seated));
-manager.AddTicket(new Ticket(65, Place.Seated));
-manager.AddTicket(new Ticket(65, Place.Seated));
+//manager.AddTicket(new Ticket(11, Place.Standing));
+//manager.AddTicket(new Ticket(64, Place.Standing));
+//manager.AddTicket(new Ticket(65, Place.Standing));
+//manager.AddTicket(new Ticket(11, Place.Seated));
+//manager.AddTicket(new Ticket(64, Place.Seated));
+//manager.AddTicket(new Ticket(65, Place.Seated));
+//manager.AddTicket(new Ticket(65, Place.Seated));
 
 
-Ticket ticketToRemove = manager.LocalTickets.Where(t => t.Number == 1).First();
+//Ticket ticketToRemove = manager.LocalTickets.Where(t => t.Number == 1).First();
 
-Console.WriteLine("SalesTotal: " + manager.SalesTotal());
-Console.WriteLine("RemoveTicket " + manager.RemoveTicket(ticketToRemove));
-Console.WriteLine("AmountOfTickets: " + manager.AmountOfTickets());
+//Console.WriteLine("SalesTotal: " + manager.SalesTotal());
+//Console.WriteLine("RemoveTicket " + manager.RemoveTicket(ticketToRemove));
+//Console.WriteLine("AmountOfTickets: " + manager.AmountOfTickets());
+
+
+
+string concertData = File.ReadAllText("C:\\Users\\ArnTie\\Desktop\\lexicon\\Inlämningsuppgifter\\C#\\C# Methods\\C# Methods\\C# Methods\\concert_data.json");
+List<Concert> concerts = JsonSerializer.Deserialize<List<Concert>>(concertData);
+
+Console.WriteLine("All conserts");
+Console.WriteLine(concertData + "\n");
+
+//1. Return a new List<Concert> ordered by the Date value, going from the present date.
+var sortedConcerts = concerts.Where(b => b.Date > DateTime.Now).OrderBy(b => b.Date);
+Console.WriteLine("upcoming concerts sorted by date");
+foreach (var concert in sortedConcerts) Console.WriteLine(concert.Date);
+Console.WriteLine();
+
+//2. Return a new List<Concert> with all concerts of a ReducedVenue (true).
+var concertWithReducedVenue = concerts.Where(b => b.ReducedVenue == true);
+Console.WriteLine("concerts with reduced venue");
+foreach (var concert in concertWithReducedVenue) Console.WriteLine(concert.ReducedVenue);
+Console.WriteLine();
+
+//3.Return a new List<Concert> with all concerts during 2024.
+var concertsIn2024 = concerts.Where(b => b.Date.ToString().Contains("2024"));
+Console.WriteLine("concerts in 2024");
+foreach (var concert in concertsIn2024) Console.WriteLine(concert.Date);
+Console.WriteLine();
+
+//4. Return a new List<Concert> with the five biggest projected sales figures (the FullCapacitySales value).
+var biggestSalesFigures = concerts.OrderByDescending(b => b.FullCapacitySales).Take(5);
+Console.WriteLine("5 biggest concerts by sales figures");
+foreach (var concert in biggestSalesFigures) Console.WriteLine(concert.FullCapacitySales);
+Console.WriteLine();
+
+//5.Return a new List<Concert> with all concerts taking place on a Friday.
+var concertsOnFridays = concerts.Where(b => b.Date.DayOfWeek == DayOfWeek.Friday);
+Console.WriteLine("concerts on fridays");
+foreach (var concert in concertsOnFridays) Console.WriteLine(concert.Date.DayOfWeek);
+Console.WriteLine();
