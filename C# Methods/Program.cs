@@ -62,31 +62,31 @@ Console.WriteLine("All conserts");
 Console.WriteLine(concertData + "\n");
 
 //1. Return a new List<Concert> ordered by the Date value, going from the present date.
-var sortedConcerts = concerts.Where(b => b.Date > DateTime.Now).OrderBy(b => b.Date);
+List<Concert> sortedConcerts = concerts.Where(b => b.Date > DateTime.Now).OrderBy(b => b.Date).ToList();
 Console.WriteLine("upcoming concerts sorted by date");
 foreach (var concert in sortedConcerts) Console.WriteLine(concert.Date);
 Console.WriteLine();
 
 //2. Return a new List<Concert> with all concerts of a ReducedVenue (true).
-var concertWithReducedVenue = concerts.Where(b => b.ReducedVenue == true);
+List<Concert> concertWithReducedVenue = concerts.Where(b => b.ReducedVenue == true).ToList();
 Console.WriteLine("concerts with reduced venue");
 foreach (var concert in concertWithReducedVenue) Console.WriteLine(concert.ReducedVenue);
 Console.WriteLine();
 
 //3.Return a new List<Concert> with all concerts during 2024.
-var concertsIn2024 = concerts.Where(b => b.Date.ToString().Contains("2024"));
+List<Concert> concertsIn2024 = concerts.Where(b => b.Date.ToString().Contains("2024")).ToList();
 Console.WriteLine("concerts in 2024");
 foreach (var concert in concertsIn2024) Console.WriteLine(concert.Date);
 Console.WriteLine();
 
 //4. Return a new List<Concert> with the five biggest projected sales figures (the FullCapacitySales value).
-var biggestSalesFigures = concerts.OrderByDescending(b => b.FullCapacitySales).Take(5);
+List<Concert> biggestSalesFigures = concerts.OrderByDescending(b => b.FullCapacitySales).Take(5).ToList();
 Console.WriteLine("5 biggest concerts by sales figures");
 foreach (var concert in biggestSalesFigures) Console.WriteLine(concert.FullCapacitySales);
 Console.WriteLine();
 
 //5.Return a new List<Concert> with all concerts taking place on a Friday.
-var concertsOnFridays = concerts.Where(b => b.Date.DayOfWeek == DayOfWeek.Friday);
+List<Concert> concertsOnFridays = concerts.Where(b => b.Date.DayOfWeek == DayOfWeek.Friday).ToList();
 Console.WriteLine("concerts on fridays");
 foreach (var concert in concertsOnFridays) Console.WriteLine(concert.Date.DayOfWeek);
 Console.WriteLine();
