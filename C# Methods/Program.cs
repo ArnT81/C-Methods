@@ -1,4 +1,6 @@
 ﻿using C__Methods;
+using System;
+using System.Linq;
 using System.Text.Json;
 using static C__Methods.TicketOfficeAssignment;
 
@@ -55,38 +57,106 @@ using static C__Methods.TicketOfficeAssignment;
 
 
 
-string concertData = File.ReadAllText("C:\\Users\\ArnTie\\Desktop\\lexicon\\Inlämningsuppgifter\\C#\\C# Methods\\C# Methods\\C# Methods\\concert_data.json");
-List<Concert> concerts = JsonSerializer.Deserialize<List<Concert>>(concertData);
+//CONCERT QUERY ASSIGNMENT
+//string concertData = File.ReadAllText("C:\\Users\\ArnTie\\Desktop\\lexicon\\Inlämningsuppgifter\\C#\\C# Methods\\C# Methods\\C# Methods\\concert_data.json");
+//List<Concert> concerts = JsonSerializer.Deserialize<List<Concert>>(concertData);
 
-Console.WriteLine("All conserts");
-Console.WriteLine(concertData + "\n");
+//Console.WriteLine("All conserts");
+//Console.WriteLine(concertData + "\n");
 
-//1. Return a new List<Concert> ordered by the Date value, going from the present date.
-List<Concert> sortedConcerts = concerts.Where(b => b.Date > DateTime.Now).OrderBy(b => b.Date).ToList();
-Console.WriteLine("upcoming concerts sorted by date");
-foreach (var concert in sortedConcerts) Console.WriteLine(concert.Date);
+////1. Return a new List<Concert> ordered by the Date value, going from the present date.
+//List<Concert> sortedConcerts = concerts.Where(b => b.Date > DateTime.Now).OrderBy(b => b.Date).ToList();
+//Console.WriteLine("upcoming concerts sorted by date");
+//foreach (var concert in sortedConcerts) Console.WriteLine(concert.Date);
+//Console.WriteLine();
+
+////2. Return a new List<Concert> with all concerts of a ReducedVenue (true).
+//List<Concert> concertWithReducedVenue = concerts.Where(b => b.ReducedVenue == true).ToList();
+//Console.WriteLine("concerts with reduced venue");
+//foreach (var concert in concertWithReducedVenue) Console.WriteLine(concert.ReducedVenue);
+//Console.WriteLine();
+
+////3.Return a new List<Concert> with all concerts during 2024.
+//List<Concert> concertsIn2024 = concerts.Where(b => b.Date.ToString().Contains("2024")).ToList();
+//Console.WriteLine("concerts in 2024");
+//foreach (var concert in concertsIn2024) Console.WriteLine(concert.Date);
+//Console.WriteLine();
+
+////4. Return a new List<Concert> with the five biggest projected sales figures (the FullCapacitySales value).
+//List<Concert> biggestSalesFigures = concerts.OrderByDescending(b => b.FullCapacitySales).Take(5).ToList();
+//Console.WriteLine("5 biggest concerts by sales figures");
+//foreach (var concert in biggestSalesFigures) Console.WriteLine(concert.FullCapacitySales);
+//Console.WriteLine();
+
+////5.Return a new List<Concert> with all concerts taking place on a Friday.
+//List<Concert> concertsOnFridays = concerts.Where(b => b.Date.DayOfWeek == DayOfWeek.Friday).ToList();
+//Console.WriteLine("concerts on fridays");
+//foreach (var concert in concertsOnFridays) Console.WriteLine(concert.Date.DayOfWeek);
+//Console.WriteLine();
+
+
+//EXCEPTIONS ASSIGNMENT
+static List<int> convertStringToNumbers(string random)
+{
+    List<int> descendingList = new List<int>();
+
+    try
+    {
+        List<int> temporaryList = new List<int>();
+        string[] partOfString = random.Split(",");
+
+        foreach (var item in partOfString) temporaryList.Add(int.Parse(item));
+
+        descendingList = temporaryList.OrderByDescending(b => b).ToList();
+    }
+    catch (FormatException ex) { Console.WriteLine(ex.Message); }
+
+    return descendingList;
+}
+
+
+
+
+WordsDTO temp(string filePath)
+{
+    string[] partsOfFileContent = { };
+    bool success;
+    string tmp;
+
+
+    try
+    {
+        List<string> temporaryList = new List<string>();
+
+        string textContent = File.ReadAllText(filePath);
+        foreach (var item in textContent.Split(" ")) temporaryList.Add($"{item},");
+
+        partsOfFileContent = temporaryList.ToArray();
+        success = true;
+        tmp = "Success";
+    }
+    catch (DirectoryNotFoundException ex)
+    {
+        Console.WriteLine(ex.Message);
+        success = false;
+        tmp = "Failure";
+    }
+    catch (FileNotFoundException ex)
+    {
+        Console.WriteLine(ex.Message);
+        success = false;
+        tmp = "Failure";
+    }
+
+    return new WordsDTO(partsOfFileContent, success, tmp);
+}
+//First step
+foreach (var item in convertStringToNumbers("58,24,347,478,59,546,237")) Console.WriteLine(item);
+WordsDTO myDTO = temp("C:\\Users\\ArnTie\\Desktop\\lexicon\\Inlämningsuppgifter\\C#\\C# Methods\\C# Methods\\C# Methods\\TheText.txt");
+
 Console.WriteLine();
 
-//2. Return a new List<Concert> with all concerts of a ReducedVenue (true).
-List<Concert> concertWithReducedVenue = concerts.Where(b => b.ReducedVenue == true).ToList();
-Console.WriteLine("concerts with reduced venue");
-foreach (var concert in concertWithReducedVenue) Console.WriteLine(concert.ReducedVenue);
-Console.WriteLine();
-
-//3.Return a new List<Concert> with all concerts during 2024.
-List<Concert> concertsIn2024 = concerts.Where(b => b.Date.ToString().Contains("2024")).ToList();
-Console.WriteLine("concerts in 2024");
-foreach (var concert in concertsIn2024) Console.WriteLine(concert.Date);
-Console.WriteLine();
-
-//4. Return a new List<Concert> with the five biggest projected sales figures (the FullCapacitySales value).
-List<Concert> biggestSalesFigures = concerts.OrderByDescending(b => b.FullCapacitySales).Take(5).ToList();
-Console.WriteLine("5 biggest concerts by sales figures");
-foreach (var concert in biggestSalesFigures) Console.WriteLine(concert.FullCapacitySales);
-Console.WriteLine();
-
-//5.Return a new List<Concert> with all concerts taking place on a Friday.
-List<Concert> concertsOnFridays = concerts.Where(b => b.Date.DayOfWeek == DayOfWeek.Friday).ToList();
-Console.WriteLine("concerts on fridays");
-foreach (var concert in concertsOnFridays) Console.WriteLine(concert.Date.DayOfWeek);
-Console.WriteLine();
+//Second step
+foreach (var part in myDTO.StringArray) Console.WriteLine(part);
+Console.WriteLine($"bool: {myDTO.TheBool}");
+Console.WriteLine($"string: {myDTO.TheString}");
